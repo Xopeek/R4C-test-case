@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Robot(models.Model):
+    """Роботы."""
     serial = models.CharField(
         'Серия',
         max_length=5,

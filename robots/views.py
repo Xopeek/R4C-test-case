@@ -15,18 +15,13 @@ from robots.models import Robot
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RobotCreationView(View):
+    """Создание роботов."""
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         serial = data['serial']
         model = data['model']
         version = data['version']
         created = data['created']
-
-        # if Robot.objects.filter(version=version).exists():
-        #     return JsonResponse(
-        #         {'message': 'Данная модель и версия роботы уже существует.'},
-        #         status=400
-        #     )
 
         if serial and model and version and created:
             Robot.objects.create(
@@ -45,6 +40,7 @@ class RobotCreationView(View):
 
 
 class ExcelReportView(View):
+    """Скачать отчет по роботам."""
     def get(self, request, *args, **kwargs):
         end_date = timezone.now()
         start_date = end_date - datetime.timedelta(days=7)
